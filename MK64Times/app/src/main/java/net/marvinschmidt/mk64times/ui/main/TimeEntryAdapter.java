@@ -31,8 +31,15 @@ public class TimeEntryAdapter extends ArrayAdapter<MK64TimeEntry> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         String trackName = getItem(position).getTrackName();
-        String timeFormatted = "Time: " + getItem(position).getTimeFormatted();
-        String rankFormatted = "Rank: " + getItem(position).getRank();
+
+        String timeFormatted = "Time: \t\t\t\t\t" + getItem(position).getTimeFormatted();
+        String timeConverted = "";
+        if (getItem(position).isPAL())
+            timeConverted = "Converted: \txx'xx''xx (NTSC)";
+        else
+            timeConverted = "Converted: \txx'xx''xx (PAL)";
+
+        String rankFormatted = "Rank: \t\t\t\t\t" + getItem(position).getRank();
 
         LayoutInflater inflater = LayoutInflater.from(applicationContext);
         convertView = inflater.inflate(mResource, parent, false);
@@ -42,6 +49,9 @@ public class TimeEntryAdapter extends ArrayAdapter<MK64TimeEntry> {
 
         TextView tvTopRightText = convertView.findViewById(R.id.topRightText);
         tvTopRightText.setText(timeFormatted);
+
+        TextView tvmidRightText = convertView.findViewById(R.id.midRightText);
+        tvmidRightText.setText(timeConverted);
 
         TextView tvBottomRightText = convertView.findViewById(R.id.bottomRightText);
         tvBottomRightText.setText(rankFormatted);

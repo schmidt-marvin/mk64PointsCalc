@@ -21,7 +21,7 @@ public class MK64TimeEntry {
     }
 
     // (https://beckabney.com/mk64/sully/conversion_rate.html)
-    public double getSeconds(boolean pal) {
+    public double getAsSeconds(boolean pal) {
         if (pal) {
             if (isPAL) {
                 return (mins * 60) + secs + ((double)hundreds) / 100.0;
@@ -35,6 +35,7 @@ public class MK64TimeEntry {
                 return ((mins * 60) + secs + ((double)hundreds) / 100.0) / 1.2024;
         }
     }
+
 
 
     public int getRank() {

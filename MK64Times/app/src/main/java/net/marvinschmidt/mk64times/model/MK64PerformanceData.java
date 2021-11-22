@@ -27,10 +27,11 @@ public class MK64PerformanceData {
 
     //TODO: points = (total3laptime x 100 + 3 x totalflaptime x 100)/525 + AF/500 x 100 - WRcount/32
     public double calculatePoints() {
-        System.out.println("((get3LapTimesSeconds(false) * 100 + 3 * getfLapTimesSeconds(false) * 100) / 525) -> " + ((get3LapTimesSeconds(false) * 100 + 3 * getfLapTimesSeconds(false) * 100) / 525));
-        System.out.println("(calculateAF() / 5) -> " + (calculateAF() / 5));
+        System.out.println("((get3LapTimesHundreds(false) + 3 * getfLapTimesHundreds(false)) / 525) -> " + ((get3LapTimesHundreds(false) + 3 * getfLapTimesHundreds(false)) / 525));
+        System.out.println("(((get3LapTimesSeconds(false) * 100.0) + (3.0 * getfLapTimesSeconds(false) * 100.0)) / 525.0) ->" + (((get3LapTimesSeconds(false) * 100.0) + (3.0 * getfLapTimesSeconds(false) * 100.0)) / 525.0));
+        System.out.println("(calculateAF() / 500 * 100) -> " + (calculateAF() / 500.0 * 100.0));
         System.out.println("(getTotalWRs() / 32) -> " + (getTotalWRs() / 32));
-        return (((get3LapTimesSeconds(false) * 100) + (3 * getfLapTimesSeconds(false) * 100)) / 525) + (calculateAF() / 5) - ((double)getTotalWRs() / 32);
+        return (((get3LapTimesSeconds(false) * 100.0) + (3.0 * getfLapTimesSeconds(false) * 100.0)) / 525.0) + (calculateAF() / 500 * 100) - ((double)getTotalWRs() / 32.0);
     }
 
     // TODO: AF = sum of ranks / 32
@@ -46,7 +47,7 @@ public class MK64PerformanceData {
         double sum = 0;
         for (MK64TimeEntry entry : timeEntries)
             if (entry.is3Lap())
-                sum += entry.getSeconds(pal);
+                sum += entry.getAsSeconds(pal);
 
         return sum;
     }
@@ -55,7 +56,7 @@ public class MK64PerformanceData {
         double sum = 0;
         for (MK64TimeEntry entry : timeEntries)
             if (!entry.is3Lap())
-                sum += entry.getSeconds(pal);
+                sum += entry.getAsSeconds(pal);
 
         return sum;
     }

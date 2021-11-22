@@ -9,7 +9,7 @@
         android:gravity="center"
         android:textAlignment="center"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:id="@+id/leftText"
         android:text="Luigi Raceway 3lap"
         android:layout_weight="50">
@@ -24,13 +24,20 @@
         <TextView
             android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="16.66dp"
             android:id="@+id/topRightText"
             android:text="Time: 1'59''00 (PAL)">
         </TextView>
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="16.66dp"
+            android:id="@+id/midRightText"
+            android:text="Converted: 1'38''97 (NTSC)"
+            android:layout_gravity="center">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="16.66dp"
             android:id="@+id/bottomRightText"
             android:text="Rank: 123"
             android:layout_gravity="center">
