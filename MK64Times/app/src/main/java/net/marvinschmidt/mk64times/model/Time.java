@@ -129,17 +129,17 @@ public class Time {
         String hundredsFormatted = String.format("%02.0f", getHundreds());
 
         String formatted = minsFormatted + "\'" + secsFormatted + "\"" + hundredsFormatted;
-        if (printIsPAL || printIsWR) {
-            // first value = is PAL time?
-            if (printIsPAL)
-                formatted += " (PAL)";
-            else
-                formatted += " (NTSC)";
+        // first value = is PAL time?
+        if (printIsPAL)
+            formatted += " (PAL)";
 
-            // second value = is WR?
-            if (printIsWR)
-                formatted += " (WR)";
-        }
+        if (printIsNTSC)
+            formatted += " (NTSC)";
+
+        // second value = is WR?
+        if (printIsWR)
+            formatted += " (WR)";
+
         return formatted;
     }
 }
