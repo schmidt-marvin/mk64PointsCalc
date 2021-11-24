@@ -21,12 +21,16 @@ public class TimeFormatter {
                                       .collect(Collectors.toList()));
     }
 
-    public static double sumOfSeconds(ArrayList<MK64TimeEntry> entries, boolean roundIndividual, boolean roundFinal) {
-        double sum = 0;
-        for (MK64TimeEntry entry : entries)
-            sum += new Time(entry).toSeconds(roundIndividual);
-
-        return roundFinal ? (double) Math.round(sum) : sum;
+    public static double sumOfSecondsForScore(ArrayList<MK64TimeEntry> entries, boolean roundFinal) {
+        Time sum = new Time(0.0,0.0,0.0);
+        for (MK64TimeEntry entry : entries) {
+            if (entry.isPAL())
+                sum = Time.add(sum, Time.palToNtscConvert(new Time(entry)));
+            else
+                sum = Time.add(sum, new Time(entry));
+        }
+        System.out.println("seconds for " + sum + " = " + sum.toSeconds(roundFinal));
+        return sum.toSeconds(roundFinal);
     }
 
 

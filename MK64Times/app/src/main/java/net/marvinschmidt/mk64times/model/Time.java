@@ -27,17 +27,8 @@ public class Time {
         return values.getValue2();
     }
 
-    private void setMins(double mins) {
-        values.setAt0(mins);
-    }
+    private void setTime(Triplet<Double, Double, Double> time) {
 
-    private void setSecs(double secs) {
-        values.setAt1(secs);
-    }
-
-    // TODO: Set this value correctly
-    private void setHundreds(double hundreds) {
-        values.setAt2(Double.valueOf(hundreds));
     }
 
     public String toString() {
@@ -85,6 +76,10 @@ public class Time {
         totalSeconds += getSecs();
         if (round && getHundreds() >= 50)
             totalSeconds += 1;
+        else if (round)
+            totalSeconds += 0;
+        else
+            totalSeconds += getHundreds() / 100;
 
         return totalSeconds;
     }
@@ -107,31 +102,26 @@ public class Time {
     }
 
     public static Time add(Time A, Time B) {
-        System.out.println("trying to add " + A + B);
-        Time C = new Time(
-                A.getMins() + B.getMins(),
-                A.getSecs() + B.getSecs(),
-                A.getHundreds() + B.getHundreds());
+        double mins = A.getMins() + + B.getMins();
+        double secs = A.getSecs() + B.getSecs();
+        double hundreds = A.getHundreds() + B.getHundreds();
 
-        while (C.getHundreds() >= 100.0) {
-            System.out.println("adjusting hundreds. before: " + C.getHundreds());
-            C.setHundreds(C.getHundreds() - 100.0);
-            System.out.println("adjusting hundreds. after: " + C.getHundreds());
-            C.setSecs(C.getSecs() + 1);
+        while (hundreds >= 100.0) {
+            hundreds -= 100.0;
+            secs += 1;
         }
 
-        while (C.getSecs() >= 60){
-            System.out.println("adjusting secs");
-            C.setSecs(C.getSecs() - 60);
-            C.setMins(C.getMins() + 1);
+        while (secs >= 60){
+            secs -= 60;
+            mins += 1;
         }
 
-        return C;
+        return new Time(mins, secs, hundreds);
     }
 
     // included info string: (1) -> is pal? (2) -> is wr?
     // null -> no info
-    public String formatted(boolean printIsPAL, boolean printIsWR) {
+    public String formatted(boolean printIsPAL, boolean printIsNTSC, boolean printIsWR) {
         System.out.println("now formatting: " + this.toString());
 
         String minsFormatted = String.format("%02.0f", getMins());

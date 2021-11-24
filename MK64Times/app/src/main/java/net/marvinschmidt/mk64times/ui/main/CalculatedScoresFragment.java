@@ -86,12 +86,9 @@ public class CalculatedScoresFragment extends Fragment{
                 MK64PerformanceData data = new MK64PerformanceData(timeEntries);
 
                 changeFields(data.format3lapPALString(),
-                        //data.formatflapPALString(),
-                        "dummy",
-                        //data.format3lapNTSCString(),
-                        "dummy",
-                        // data.format3lapNTSCString(),
-                        "dummy",
+                        data.formatflapPALString(),
+                        data.format3lapNTSCString(),
+                        data.formatflapNTSCString(),
                         String.valueOf(data.calculateAF()),
                         String.format("%.6f", data.calculatePoints())
                 );

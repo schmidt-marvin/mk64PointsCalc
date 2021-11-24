@@ -7,7 +7,6 @@ public class MK64PerformanceData {
 
     private ArrayList<MK64TimeEntry> timeEntries;
 
-    private static final boolean SUM_ROUND_INDIVIDUAL = false;
     private static final boolean SUM_ROUND_FINAL = false;
 
 
@@ -37,8 +36,8 @@ public class MK64PerformanceData {
 
 
 
-        return (TimeFormatter.sumOfSeconds(threeLapEntries, SUM_ROUND_INDIVIDUAL, SUM_ROUND_FINAL) * 100 +
-                        3 * TimeFormatter.sumOfSeconds(fastLapEntries, SUM_ROUND_INDIVIDUAL, SUM_ROUND_FINAL)) / 525
+        return (TimeFormatter.sumOfSecondsForScore(threeLapEntries, SUM_ROUND_FINAL) * 100 +
+                        3 * TimeFormatter.sumOfSecondsForScore(fastLapEntries, SUM_ROUND_FINAL) * 100) / 525
                 + calculateAF() / 500 * 100
                 - getTotalWRs() / 32;
     }
@@ -73,7 +72,7 @@ public class MK64PerformanceData {
                 total = Time.add(total, Time.ntscToPalConvert(new Time(timeEntry)));
         }
 
-        return total.formatted(false, false);
+        return total.formatted(false, false, false);
     }
 
     public String formatflapPALString() {
@@ -86,7 +85,7 @@ public class MK64PerformanceData {
                 total = Time.add(total, Time.ntscToPalConvert(new Time(timeEntry)));
         }
 
-        return total.formatted(false, false);
+        return total.formatted(false, false, false);
     }
 
     public String format3lapNTSCString() {
@@ -99,7 +98,7 @@ public class MK64PerformanceData {
                 total = Time.add(total, new Time(timeEntry));
         }
 
-        return total.formatted(false, false);
+        return total.formatted(false, false, false);
     }
 
     public String formatflapNTSCString() {
@@ -112,6 +111,6 @@ public class MK64PerformanceData {
                 total = Time.add(total, new Time(timeEntry));
         }
 
-        return total.formatted(false, false);
+        return total.formatted(false, false,false);
     }
 }

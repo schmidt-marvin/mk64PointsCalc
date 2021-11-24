@@ -38,16 +38,16 @@ public class TimeEntryAdapter extends ArrayAdapter<MK64TimeEntry> {
         MK64TimeEntry viewEntry = getItem(position);
 
         if (viewEntry.isPAL())
-            timeFormatted = "Time: \t\t\t\t\t" + new Time(viewEntry).formatted(true, viewEntry.getRank() == 1);
+            timeFormatted = "Time: \t\t\t\t\t" + new Time(viewEntry).formatted(true, false,viewEntry.getRank() == 1);
         else
-            timeFormatted = "Time: \t\t\t\t\t" + new Time(viewEntry).formatted(false, viewEntry.getRank() == 1);
+            timeFormatted = "Time: \t\t\t\t\t" + new Time(viewEntry).formatted(false, true,viewEntry.getRank() == 1);
 
         // get converted time as formatted string
         String timeConverted = "";
         if (viewEntry.isPAL())
-            timeConverted = "Converted: \t" + Time.palToNtscConvert(new Time(viewEntry)).formatted(false, false);
+            timeConverted = "Converted: \t" + Time.palToNtscConvert(new Time(viewEntry)).formatted(false, true, viewEntry.getRank() == 1);
         else
-            timeConverted = "Converted: \t" + Time.ntscToPalConvert(new Time(viewEntry)).formatted(false, viewEntry.getRank() == 1);;
+            timeConverted = "Converted: \t" + Time.ntscToPalConvert(new Time(viewEntry)).formatted(true, false, viewEntry.getRank() == 1);;
 
         String rankFormatted = "Rank: \t\t\t\t\t" + viewEntry.getRank();
 
