@@ -18,7 +18,10 @@ import net.marvinschmidt.mk64times.model.DataProducer;
 import net.marvinschmidt.mk64times.model.JSONFormatter;
 import net.marvinschmidt.mk64times.model.MK64PerformanceData;
 import net.marvinschmidt.mk64times.model.MK64TimeEntry;
+import net.marvinschmidt.mk64times.model.Time;
+import net.marvinschmidt.mk64times.model.TimeFormatter;
 
+import org.javatuples.Triplet;
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -82,10 +85,13 @@ public class CalculatedScoresFragment extends Fragment{
                 ArrayList<MK64TimeEntry> timeEntries = JSONFormatter.fromJSONFormatted(json);
                 MK64PerformanceData data = new MK64PerformanceData(timeEntries);
 
-                changeFields(MK64TimeEntry.formatted(data.get3LapTimesHundreds(true)),
-                        MK64TimeEntry.formatted(data.getfLapTimesHundreds(true)),
-                        MK64TimeEntry.formatted(data.get3LapTimesHundreds(false)),
-                        MK64TimeEntry.formatted(data.getfLapTimesHundreds(false)),
+                changeFields(data.format3lapPALString(),
+                        //data.formatflapPALString(),
+                        "dummy",
+                        //data.format3lapNTSCString(),
+                        "dummy",
+                        // data.format3lapNTSCString(),
+                        "dummy",
                         String.valueOf(data.calculateAF()),
                         String.format("%.6f", data.calculatePoints())
                 );

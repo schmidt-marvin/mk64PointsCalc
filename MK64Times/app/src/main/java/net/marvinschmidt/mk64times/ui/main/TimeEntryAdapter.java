@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 
 import net.marvinschmidt.mk64times.R;
 import net.marvinschmidt.mk64times.model.MK64TimeEntry;
+import net.marvinschmidt.mk64times.model.Time;
 
 import java.util.List;
 
@@ -32,14 +33,23 @@ public class TimeEntryAdapter extends ArrayAdapter<MK64TimeEntry> {
     public View getView(int position, View convertView, ViewGroup parent) {
         String trackName = getItem(position).getTrackName();
 
-        String timeFormatted = "Time: \t\t\t\t\t" + getItem(position).getTimeFormatted();
-        String timeConverted = "";
-        if (getItem(position).isPAL())
-            timeConverted = "Converted: \txx'xx''xx (NTSC)";
-        else
-            timeConverted = "Converted: \txx'xx''xx (PAL)";
+        // get original time as formatted string
+        String timeFormatted = "";
+        MK64TimeEntry viewEntry = getItem(position);
 
-        String rankFormatted = "Rank: \t\t\t\t\t" + getItem(position).getRank();
+        if (viewEntry.isPAL())
+            timeFormatted = "Time: \t\t\t\t\t" + new Time(viewEntry).formatted(true, viewEntry.getRank() == 1);
+        else
+            timeFormatted = "Time: \t\t\t\t\t" + new Time(viewEntry).formatted(false, viewEntry.getRank() == 1);
+
+        // get converted time as formatted string
+        String timeConverted = "";
+        if (viewEntry.isPAL())
+            timeConverted = "Converted: \t" + Time.palToNtscConvert(new Time(viewEntry)).formatted(false, false);
+        else
+            timeConverted = "Converted: \t" + Time.ntscToPalConvert(new Time(viewEntry)).formatted(false, viewEntry.getRank() == 1);;
+
+        String rankFormatted = "Rank: \t\t\t\t\t" + viewEntry.getRank();
 
         LayoutInflater inflater = LayoutInflater.from(applicationContext);
         convertView = inflater.inflate(mResource, parent, false);
